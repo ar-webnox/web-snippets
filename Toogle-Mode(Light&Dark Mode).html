@@ -1,0 +1,35 @@
+<!-- <<<===== HTML =====>>> -->
+<button id="mode-toggle"><i class="fa-regular fa-moon"></i></button>
+
+<!-- <<<===== CSS =====>>> -->
+<style>
+    .dark-mode {
+        color: white;
+        background: black;
+    }
+</style>
+
+<!-- <<<===== JavaScript =====>>> -->
+<script>
+    const btn = document.getElementById("mode-toggle");
+
+    // theme apply function
+    const setTheme = (theme) => {
+        document.documentElement.classList.toggle("dark-mode", theme === "dark");
+        btn.innerHTML = theme === "dark"
+            ? '<i class="fa-regular fa-sun"></i>'
+            : '<i class="fa-regular fa-moon"></i>';
+        localStorage.setItem("theme", theme);
+    };
+
+    // theme load on start
+    const saved = localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    setTheme(saved);
+
+    // button toggle
+    btn.onclick = () => {
+        const newTheme = document.documentElement.classList.contains("dark-mode") ? "light" : "dark";
+        setTheme(newTheme);
+    };
+</script>
