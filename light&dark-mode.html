@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light&Dark Mode - AR WebNox</title>
+    <!-- Font Awesome Icons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: var(--primary-bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .mrg-top-10 {
+            margin: 10px;
+        }
+
+        .raw-box {
+            display: block;
+            text-align: center;
+            cursor: default;
+        }
+
+        .title {
+            display: inline-block;
+            min-width: fit-content;
+            min-height: 50px;
+            padding: 0 25px;
+            clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+            background-color: var(--heading-bg-color);
+            color: white;
+        }
+
+        /* Light&Dark Mode CSS */
+        :root {
+            --primary-color: #000;
+            --primary-bg-color: #edf2fc;
+            --heading-bg-color: #333;
+        }
+
+        .dark-mode {
+            --primary-color: #fff;
+            --primary-bg-color: #000;
+        }
+
+        #mode-toggle {
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            background: var(--primary-color);
+            color: var(--primary-bg-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="raw-box">
+        <h1 class="title  mrg-top-10">Light&Dark Mode</h1>
+    </div>
+
+    <div class="raw-box">
+        <!-- Light&Dark Mode HTML -->
+        <button id="mode-toggle"><i class="fa-regular fa-moon"></i></button>
+    </div>
+
+    <script>
+        // Light&Dark Mode JS
+        const btn = document.getElementById("mode-toggle");
+
+        // theme apply function
+        const setTheme = (theme) => {
+            document.documentElement.classList.toggle("dark-mode", theme === "dark");
+            btn.innerHTML = theme === "dark"
+                ? '<i class="fa-regular fa-sun"></i>'
+                : '<i class="fa-regular fa-moon"></i>';
+            localStorage.setItem("theme", theme);
+        };
+
+        // theme load on start
+        const saved = localStorage.getItem("theme") ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        setTheme(saved);
+
+        // button toggle
+        btn.onclick = () => {
+            const newTheme = document.documentElement.classList.contains("dark-mode") ? "light" : "dark";
+            setTheme(newTheme);
+        };
+    </script>
+</body>
+
+</html>
